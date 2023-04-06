@@ -1,0 +1,160 @@
+
+[ ]
+#eğer pyhonda gömülü olmayan bir programı yüklemek istiyorsak  !pip install ile yükleriz.  
+#Şu anda(yani colab üzerinden) sanal sunucuya yükler. kapanınca gider. ama bilgisayarda yüklü bir programdan yüklersek kullanılan bilgisayara yüklenir.
+
+!pip install wikipedia 
+Looking in indexes: https://pypi.org/simple, https://us-python.pkg.dev/colab-wheels/public/simple/
+Collecting wikipedia
+  Downloading wikipedia-1.4.0.tar.gz (27 kB)
+Requirement already satisfied: beautifulsoup4 in /usr/local/lib/python3.7/dist-packages (from wikipedia) (4.6.3)
+Requirement already satisfied: requests<3.0.0,>=2.0.0 in /usr/local/lib/python3.7/dist-packages (from wikipedia) (2.23.0)
+Requirement already satisfied: idna<3,>=2.5 in /usr/local/lib/python3.7/dist-packages (from requests<3.0.0,>=2.0.0->wikipedia) (2.10)
+Requirement already satisfied: certifi>=2017.4.17 in /usr/local/lib/python3.7/dist-packages (from requests<3.0.0,>=2.0.0->wikipedia) (2022.9.24)
+Requirement already satisfied: chardet<4,>=3.0.2 in /usr/local/lib/python3.7/dist-packages (from requests<3.0.0,>=2.0.0->wikipedia) (3.0.4)
+Requirement already satisfied: urllib3!=1.25.0,!=1.25.1,<1.26,>=1.21.1 in /usr/local/lib/python3.7/dist-packages (from requests<3.0.0,>=2.0.0->wikipedia) (1.24.3)
+Building wheels for collected packages: wikipedia
+  Building wheel for wikipedia (setup.py) ... done
+  Created wheel for wikipedia: filename=wikipedia-1.4.0-py3-none-any.whl size=11696 sha256=aa0eae8d8b124868f844126575235591674d609521bb6e24f7b040255d4a6211
+  Stored in directory: /root/.cache/pip/wheels/15/93/6d/5b2c68b8a64c7a7a04947b4ed6d89fb557dcc6bc27d1d7f3ba
+Successfully built wikipedia
+Installing collected packages: wikipedia
+Successfully installed wikipedia-1.4.0
+
+
+[ ]
+import wikipedia 
+
+
+[ ]
+wikipedia.search("kedi")   #indirdiği,miz wikipedia kütüphanesinden kedi ile alakalı bilgileri çektik. ama sonuç ingilizce çıktı.
+['Kedi',
+ 'Kedi Billa Killadi Ranga',
+ 'Kedi (2016 film)',
+ 'Kedi (2010 film)',
+ 'Anthony Kiedis',
+ 'Kedi (2006 film)',
+ 'Regina Cassandra',
+ 'Sivakarthikeyan',
+ 'Kenneth Kedi',
+ 'Baba Bhaskar']
+ 
+ 
+[ ]
+wikipedia.set_lang("tr")   #dilini Türkçe'ye çevirdik
+
+
+[ ]
+wikipedia.search("kedi")
+['Kedi',
+ 'Kedi nezlesi',
+ 'Tekir (kedi)',
+ 'Altın kedi',
+ 'Paslı kedi',
+ 'Kedi köpekbalığıgiller',
+ 'Heterokromik gözlü kedi',
+ 'Kedi Kadın',
+ 'Kara Kedi',
+ 'Çizmeli Kedi']
+ 
+ 
+[ ]
+wikipedia.page("kedi")  #kedi ile alakalı wikipedia sayfasını getirir
+<WikipediaPage 'Kedi'>
+
+
+[ ]
+kedi=wikipedia.page("kedi")   #ama içeriğini de belirtmemiz gerektiği için böyle yapmamız gerekir.
+kedi.content
+len(kedi.split(" "))
+
+
+[ ]
+#ÖDEV
+#keyword=input("Anahtar kelime giriniz  :")
+#yazılan anahtar kelimenin metin içinde kaç defa geçtiğini bul. yüzdeliği bulunacak (tüm metindeki kelime sayısı/aranılan kelime sayısı)
+len(metin)   #metin değişkenindeki tüm karakterlerin sayısını verir.
+len(metin.split(" "))   #kelime sayısını da bulmak için boşluk sayısını göre kelime sayısını bulabiliriz.
+
+
+[ ]
+metin = "asdfgjhşiwğeorürtıuıtyzçxcvnbvçxcnvbşjfhngjıetğyi"
+len(metin)
+49
+
+
+[ ]
+metin="Stringler içerisinde kaç karakter olduğunu bulmak bir çok kontrol mekanizması için olmazsa olmazlar arasındadır. Örneğin bir iban numarasının doğruluğunu kontrol ederken eleman sayısını ölçmemiz gerekmektedir."
+kelime="kontrol"
+metin.count(kelime)
+2
+
+
+[ ]
+metin="Kalem Bey veya Kalem Şâh Bey (1250-? - 1307, Karesi), Karesi Bey'in babasıdır. Kesin doğum tarihi bilinmemektedir. Bizans kaynaklarında Kalamis olarak geçmektedir. Bazı kaynaklara göre Karesi Beyliği'ni oğlu Karesi Bey'in kurduğu söylenmektedir. Germiyanoğullarıyla birlikte gelerek Balıkesir çevresini aldıkları yazmaktadır.uştur. 1297'de böylece bir beylik de kurmuştur. Kalem Bey 1307 yılında öldü. Balıkesir ise Karesi Beyliği’nin merkezi olmuştur."
+kelime = input("kelime girin :")
+kelime_sayı = metin.count(kelime)
+bosluk=len(metin.split(" "))+1
+print(bosluk)
+oran=bosluk/kelime_sayı
+print("%",oran)
+kelime girin :Bey
+57
+% 8.142857142857142
+
+
+[ ]
+import wikipedia
+wikipedia.set_lang("tr")
+kelime=input("aranacak kelimeyi giriniz   :")
+print(wikipedia.search(kelime))
+anahtar_kelime=input("yukardaki kelimlerden birini seçiniz   :")
+anahtar=wikipedia.page(anahtar_kelime)
+print(anahtar.content)
+
+metin=anahtar.content
+print(len(metin))
+
+kelime_sayısı=len(metin.split(" "))+1
+print(kelime_sayısı)
+
+anahtar_sayısı=metin.count(anahtar_kelime)
+print(anahtar_sayısı)
+
+
+oran=100*anahtar_sayısı/kelime_sayısı
+print(oran)
+aranacak kelimeyi giriniz   :kalem
+['Kalem', 'Kalem Suresi', 'Kalem Bey', 'Işıklı kalem', 'Dolma kalem', 'Uçlu kalem', 'Pilot (kalem üreticisi)', 'Kalem etek', 'Mehmed Siyah Kalem', 'Kalem (dergi)']
+yukardaki kelimlerden birini seçiniz   :Kalem Bey
+Kalem Bey veya Kalem Şâh Bey (1250-? - 1307, Karesi), Karesi Bey'in babasıdır. Kesin doğum tarihi bilinmemektedir. Bizans kaynaklarında Kalamis olarak geçmektedir. Bazı kaynaklara göre Karesi Beyliği'ni oğlu Karesi Bey'in kurduğu söylenmektedir. Germiyanoğullarıyla birlikte gelerek Balıkesir çevresini aldıkları yazmaktadır.
+Danişmend soyundan olan Kalem Şah Bey'in oğlu Karesi Bey de Bizans’tan birçok yerler elde etmiş, Balıkesir ve dolaylarına sahip olmuştur. 1297'de böylece bir beylik de kurmuştur. Kalem Bey 1307 yılında öldü. Balıkesir ise Karesi Beyliği’nin merkezi olmuştur.
+
+
+== Kaynakça ==
+601
+78
+2
+2.5641025641025643
+[ ]
+# !pip install wikipedia
+import wikipedia
+wikipedia.set_lang("tr")
+kelime=input("aranacak kelime  :")
+print(wikipedia.search(kelime))
+anahtar_kelime=input("yukarıdaki kelimelrden seçiniz  :")
+anahtar=wikipedia.page(anahtar_kelime)
+print(anahtar.content)
+
+
+metin=anahtar.content
+print(len(metin))
+
+kelime_sayısı=len(metin.split(" "))+1
+print(kelime_sayısı)
+
+aranılan_kelime=metin.count(anahtar_kelime)
+print(aranılan_kelime)
+
+
+oran=100*aranılan_kelime/kelime_sayısı
